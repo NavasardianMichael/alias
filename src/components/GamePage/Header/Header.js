@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { STAGES } from '../../../helpers/constants/pages'
-import { setStage } from '../../../store/actionCreators'
+import { setStage, setState } from '../../../store/actionCreators'
 import styles from './header.module.css'
 
 function Header() {
 
     const dispatch = useDispatch()
+    const currentTurn = useSelector(state => state.turn)
     const currentTeamName = useSelector(state => state[state.turn].name)
     const [secondsLeft, setSecondsLeft] = useState(5)
 
@@ -30,7 +31,10 @@ function Header() {
 
     useEffect(() => {
         if(secondsLeft > 0) return;
-        const action = setStage(STAGES.transition)
+        const action = setState({
+            stage: STAGES.transition,
+            turn: currentTurn === 'team1' ? 'team2' : 'team1'
+        })
         dispatch(action)
     }, [secondsLeft])
 

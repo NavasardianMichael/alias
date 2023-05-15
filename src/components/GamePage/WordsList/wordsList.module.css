@@ -4,3 +4,8 @@
     flex-direction: column;
     gap: 16px;
 }
+
+.list button {
+    display: flex;
+    justify-content: space-between;
+}
