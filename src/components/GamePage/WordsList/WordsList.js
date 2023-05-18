@@ -1,19 +1,19 @@
-import { Button } from '@mui/material'
 import CheckIcon from '@mui/icons-material/Check';
-import { useDispatch, useSelector } from 'react-redux'
-import { shuffleArray } from '../../../helpers/functions'
-import styles from './wordsList.module.css'
-import { setCorrectAnswers, setCorrectWord, undoCorrectWord } from '../../../store/actionCreators';
-import { useEffect, useMemo, useState } from 'react';
+import { Button } from '@mui/material';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { shuffleArray } from '../../../helpers/functions';
+import { setCorrectAnswers } from '../../../store/actionCreators';
+import styles from './wordsList.module.css';
 
 function WordsList() {
 
     const dispatch = useDispatch()
-    const currentTurn = useSelector(state => state.turn)
-    const shuffledList = useSelector(state => shuffleArray(state.wordsLeft));
+    const shuffledList = useSelector(state => state.wordsLeft);
     const list = useMemo(() => shuffledList, [])
     const [page, setPage] = useState(0)
     const [correctWords, setCorrectWords] = useState([])
+    const ref = useRef(correctWords.length)
 
     const toggleWord = (e) => {
         const { name } = e.target
@@ -25,16 +25,15 @@ function WordsList() {
     }
 
     useEffect(() => {
-        if(correctWords.length === 5) {
+        if(correctWords.length) {
+            const action = setCorrectAnswers(correctWords);
+            console.log({action});
+            dispatch(action);
+        }
+        if(correctWords.length % 5 === 0) {
             setPage(prev => prev + 1)
         }
     }, [correctWords])
-
-    useEffect(() => {
-        if(!currentTurn) return;
-        const action = setCorrectAnswers(correctWords)
-        dispatch(action)
-    }, [currentTurn])
 
     return (
         <div className={styles.list} >
@@ -43,7 +42,7 @@ function WordsList() {
                     return (
                         <Button 
                             key={word} 
-                            variant="contained"
+                            variant="outlined"
                             color={correctWords.includes(word) ? 'success' : 'info'}
                             endIcon={correctWords.includes(word) ? <CheckIcon/> : null}
                             name={word}

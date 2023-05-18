@@ -8,4 +8,5 @@
 .list button {
     display: flex;
     justify-content: space-between;
+    text-transform: none;
 }

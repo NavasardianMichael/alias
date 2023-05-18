@@ -20,7 +20,7 @@ console.log(state.team1);
             <p><b>{state.team2.name}</b>: {state.team2.correctWords.length} point(s)</p>
             <p><b>Next turn:</b> {state.turn}</p>
             <Button 
-                variant="contained"
+                variant="outlined"
                 onClick={handleNextRoundClick}
             >
                 PLay

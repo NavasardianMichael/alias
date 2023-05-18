@@ -1,23 +1,9 @@
 import { STAGES } from "../helpers/constants/pages"
+import { WORDS_LIST } from "../helpers/constants/words";
 import { SET_CORRECT_ANSWERS, SET_CORRECT_WORD, SET_STAGE, SET_STATE, SET_USER_NAME, UNDO_CORRECT_WORD } from "./actionTypes"
 
 const initialState = {
-    wordsLeft: [
-        'a',
-        'b',
-        'c',
-        'd',
-        'e',
-        'f',
-        'g',
-        'h',
-        'i',
-        'j',
-        'k',
-        'l',
-        'm,',
-        'n',
-    ],
+    wordsLeft: [...new Set(WORDS_LIST)],
     team1: {
         id: 'team1',
         name: '',
@@ -33,6 +19,7 @@ const initialState = {
 }
 
 export const mainReducer = (state = initialState, action) => {
+    console.log({state});
     switch (action.type) {
         case SET_USER_NAME:
            return {
@@ -77,14 +64,14 @@ export const mainReducer = (state = initialState, action) => {
                 }
             }
         case SET_CORRECT_ANSWERS:
-            const turn = state.turn === 'team1' ? 'team2' : 'team1';
-            console.log({turn});
+            const turn = state.turn;
             return {
                 ...state,
                 [turn]: {
                     ...state[turn],
-                    correctWords: [...state[turn].correctWords, ...action.payload]
-                }
+                    correctWords: [...new Set([...state[turn].correctWords, ...action.payload])]
+                },
+                wordsLeft: state.wordsLeft.filter(word => !action.payload.includes(word))
             }
         default:
             return state

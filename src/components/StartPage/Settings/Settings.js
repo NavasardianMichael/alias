@@ -1,5 +1,5 @@
 import { Button, TextField } from '@mui/material'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setUserData } from '../../../store/actionCreators'
 import styles from './settings.module.css'
@@ -47,6 +47,8 @@ function Settings() {
             <Button 
                 variant="contained"
                 onClick={handleStartGameClick}
+                disabled={!userNames.team1 || !userNames.team2}
+                style={{ textTransform: 'none' }}
             >
                 Let's PLay
             </Button>
