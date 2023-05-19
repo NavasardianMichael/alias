@@ -13,12 +13,18 @@ export const ResultsPage = () => {
     const winner = detectWinnder()
 
     return (
-        <h1>
-            {
-                winner ?
-                `The winnder is ${winner}` :
-                'Draw'
-            }
-        </h1>
+        <>
+            <h1 style={{ textAlign: 'center' }}>
+                {
+                    winner ?
+                    `Հաղթող է ճանաչվում ${winner} թիմը` :
+                    'Խաղն ավարտվեց ոչ ոքի'
+                }
+            </h1>
+            <img 
+                src='https://img.freepik.com/free-vector/gamers-using-different-devices-playing-mobile-phone-tablet-laptop-console-cartoon-illustration_74855-14380.jpg'
+                style={{width: '100%', marginTop: 32}} 
+            />
+        </>
     )
 }

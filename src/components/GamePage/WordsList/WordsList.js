@@ -1,19 +1,18 @@
 import CheckIcon from '@mui/icons-material/Check';
 import { Button } from '@mui/material';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { shuffleArray } from '../../../helpers/functions';
 import { setCorrectAnswers } from '../../../store/actionCreators';
+import { shuffleArray } from '../../../helpers/functions';
 import styles from './wordsList.module.css';
 
 function WordsList() {
 
     const dispatch = useDispatch()
-    const shuffledList = useSelector(state => state.wordsLeft);
+    const shuffledList = useSelector(state => shuffleArray(state.wordsLeft));
     const list = useMemo(() => shuffledList, [])
     const [page, setPage] = useState(0)
     const [correctWords, setCorrectWords] = useState([])
-    const ref = useRef(correctWords.length)
 
     const toggleWord = (e) => {
         const { name } = e.target
@@ -27,10 +26,9 @@ function WordsList() {
     useEffect(() => {
         if(correctWords.length) {
             const action = setCorrectAnswers(correctWords);
-            console.log({action});
             dispatch(action);
         }
-        if(correctWords.length % 5 === 0) {
+        if(correctWords.length && correctWords.length % 5 === 0) {
             setPage(prev => prev + 1)
         }
     }, [correctWords])

@@ -31,14 +31,14 @@ function Settings() {
     return (
         <div className={styles.settings}>
             <TextField 
-                label="Team 1 Name"
+                label="առաջին թիմի անունը"
                 name='team1'
                 variant="outlined"
                 value={userNames.team1}
                 onChange={handleUserNameChange} 
             />
             <TextField 
-                label="Team 2 Name"
+                label="երկրորդ թիմի անունը"
                 name='team2' 
                 variant="outlined" 
                 value={userNames.team2}
@@ -50,7 +50,7 @@ function Settings() {
                 disabled={!userNames.team1 || !userNames.team2}
                 style={{ textTransform: 'none' }}
             >
-                Let's PLay
+                Սկսել խաղը
             </Button>
         </div>
     )

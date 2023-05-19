@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { STAGES } from '../../../helpers/constants/pages'
 import { setStage, setState } from '../../../store/actionCreators'
 import styles from './header.module.css'
+import { GAME_PARAMS } from '../../../helpers/constants/game'
 
 function Header() {
 
@@ -13,7 +14,7 @@ function Header() {
     }))
     const currentTurn = useSelector(state => state.turn)
     const currentTeamName = useSelector(state => state[state.turn].name)
-    const [secondsLeft, setSecondsLeft] = useState(10)
+    const [secondsLeft, setSecondsLeft] = useState(GAME_PARAMS.secondsPerRound)
 
     useEffect(
         () => {
@@ -38,10 +39,11 @@ function Header() {
 
     useEffect(() => {
         if(secondsLeft > 0) return;
+
         if(currentTurn === 'team2') {
             const team1Points = teamsData.team1.correctWords.length;
             const team2Points = teamsData.team2.correctWords.length;
-            if(team1Points >= 50 || team2Points >= 50) {
+            if(team1Points >= GAME_PARAMS.pointsToWin || team2Points >= GAME_PARAMS.pointsToWin) {
                 const action = setState({
                     stage: STAGES.results
                 })

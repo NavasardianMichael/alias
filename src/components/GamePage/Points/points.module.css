@@ -1,0 +1,11 @@
+.points {
+    position: fixed;
+    width: 100%;
+    bottom: 16px;
+}
+
+.points p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+}

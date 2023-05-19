@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { STAGES } from "../../helpers/constants/pages"
 import { setStage } from "../../store/actionCreators"
 import styles from './transitionPage.module.css'
+import { GAME_PARAMS } from "../../helpers/constants/game"
 
 export const TransitionPage = () => {
 
@@ -13,17 +14,17 @@ export const TransitionPage = () => {
         const action = setStage(STAGES.game)
         dispatch(action)
     }
-console.log(state.team1);
+
     return (
         <div className={styles.transitionPage}>
-            <p><b>{state.team1.name}</b>: {state.team1.correctWords.length} point(s)</p>
-            <p><b>{state.team2.name}</b>: {state.team2.correctWords.length} point(s)</p>
-            <p><b>Next turn:</b> {state.turn}</p>
+            <p><b>{state.team1.name}</b>: {state.team1.correctWords.length} / {GAME_PARAMS.pointsToWin} միավոր</p>
+            <p><b>{state.team2.name}</b>: {state.team2.correctWords.length} / {GAME_PARAMS.pointsToWin} միավոր</p>
+            <p><b>հաջորդը՝</b> {state[state.turn].name} թիմի հերթն է</p>
             <Button 
-                variant="outlined"
+                variant="contained"
                 onClick={handleNextRoundClick}
             >
-                PLay
+                Սկսել հաջորդ խաղափուլը
             </Button>
         </div>
     )
