@@ -1,4 +1,4 @@
 export const GAME_PARAMS = {
-    secondsPerRound: 60,
+    secondsPerRound: 10,
     pointsToWin: 100
 }

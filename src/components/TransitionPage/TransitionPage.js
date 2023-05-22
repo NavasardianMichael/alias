@@ -9,7 +9,6 @@ export const TransitionPage = () => {
 
     const dispatch = useDispatch()
     const state = useSelector(state => state)
-
     const handleNextRoundClick = () => {
         const action = setStage(STAGES.game)
         dispatch(action)
